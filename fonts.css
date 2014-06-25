@@ -1,0 +1,11 @@
+@font-face {
+  font-family: APHont;
+  src: url(APHont-Regular_q15c.ttf) format('ttf');
+  src: url(APHont-Regular_q15c.woff) format('woff');
+}
+
+@font-face {
+  font-family: Wingdings2;
+  src: url(Wingdings2.ttf) format('ttf');
+  src: url(Wingdings2.woff) format('woff');
+}
