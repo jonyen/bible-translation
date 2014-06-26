@@ -39,7 +39,10 @@ foreach ($translations as $translation) {
 		echo  "<div style='text-align: center'><span class='fleuron'>d</span>  $matches[1]  <span class='fleuron'>c</span></div>"; 
 		preg_match("/(<div class=\"version-$translation result-text-style-normal text-html \">.+?)<div class=\"publisher-info-bottom\">/s", $result, $matches);
 		$result = $matches[1]; 
-	
+
+	        // change chapter number to verse number 1
+                $result = preg_replace("/<span class=\"chapternum\">.+?<\/span>/", "<sup class=\"versenum\">1&nbsp;<\/sup>", $result);
+
 		// remove titles
 		$result = preg_replace("/<h3>.+?<\/h3>/s", "", $result);
 

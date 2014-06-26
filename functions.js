@@ -130,10 +130,12 @@ function parse() {
       worker.onmessage = function(oEvent) {
         document.getElementById("output").innerHTML = oEvent.data;
         document.getElementById("progress").style.display = "none";
+        document.getElementById("submit").innerHTML = "Retrieve passages";
       }
 
       worker.postMessage({"passages": passages, "passagesJSON": passagesJSON, "versesJSON": versesJSON});
       document.getElementById("progress").style.display = "";
+      document.getElementById("submit").innerHTML = "Retrieving passages...";
 }
 
 function selectText(containerid) { 
