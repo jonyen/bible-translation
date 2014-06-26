@@ -71,7 +71,7 @@ foreach(array_keys($translations) as $translation) {
         if ($node->hasAttribute("class")) {
           if(preg_match("/^chapter/", $node->getAttribute("class"))) {
             $chapter_node = ($node->firstChild->nextSibling);
-            $chapter_node->setAttribute("style", "display:none");
+            $chapter_node->setAttribute("style", "visibility:hidden");
           }
         }
       }
