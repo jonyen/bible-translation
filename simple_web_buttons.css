@@ -56,7 +56,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#f0f0f0)); /*  WebKit */
     background: -moz-linear-gradient(top,  #f9f9f9, #f0f0f0);
     border-color: #dedede #d8d8d8 #d3d3d3;
-    color: #555;
+    color: #c7c7c7;
     text-shadow: 0 1px 0 #c7c7c7;
     -webkit-box-shadow: 0 1px 1px #eaeaea, inset 0 1px 0 #fbfbfb;
     -moz-box-shadow: 0 1px 1px #eaeaea, inset 0 1px 0 #fbfbfb;
