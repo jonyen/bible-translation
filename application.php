@@ -41,7 +41,7 @@ foreach ($translations as $translation) {
 		$result = $matches[1]; 
 
 	        // change chapter number to verse number 1
-                $result = preg_replace("/<span class=\"chapternum\">.+?<\/span>/", "<sup class=\"versenum\">1&nbsp;<\/sup>", $result);
+                $result = preg_replace("/<span class=\"chapternum\">.+?<\/span>/", "<sup class=\"versenum\">1&nbsp;</sup>", $result);
 
 		// remove titles
 		$result = preg_replace("/<h3>.+?<\/h3>/s", "", $result);
