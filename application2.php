@@ -24,7 +24,7 @@ foreach(array_keys($translations) as $translation) {
       $verseNums = curl_exec($verseNums);
       preg_match("/<h1 class=\"bcv\">(.+?)<\/h1>/", $verseNums, $matches);
 
-      $verseNums = array_pop(explode(" ", $matches[1])); 
+      $verseNums = array_pop(explode(" ", trim($matches[1]))); 
 
       echo "<div class='passages'>";
       $passage = rawurlencode($chapter);
