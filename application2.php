@@ -3,6 +3,8 @@ $passages = json_decode($_GET['passages']);
 $verses = json_decode($_GET['verses'], true);
 $translations = ["KRV" => "88", "KHSV" => "85"]; // mappings for Korean & Khmer on Bible.com
 
+$khmer = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");       
+
 $biblegateway_url="https://new.biblegateway.com/passage/";
 // Since Korean and Khmer are not available on Biblegateway, we use Bible.com
 $bible_com_url="https://www.bible.com/bible";
@@ -25,6 +27,9 @@ foreach(array_keys($translations) as $translation) {
       preg_match("/<h1 class=\"bcv\">(.+?)<\/h1>/", $verseNums, $matches);
 
       $verseNums = array_pop(explode(" ", trim($matches[1]))); 
+      if ($translation == "KHSV") {
+        $verseNums = strtr($verseNums, $khmer);
+      }
 
       echo "<div class='passages'>";
       $passage = rawurlencode($chapter);
@@ -55,6 +60,9 @@ foreach(array_keys($translations) as $translation) {
           } 
           if ($node->getAttribute("class") == "label") {
             $val = $node->nodeValue;
+            if ($translation == "KHSV") {
+              $val = strtr($val, $khmer);
+            }
             $newNode = $dom->createElement("sup", "$val&nbsp;"); 
             $newNode->setAttribute("class", "versenum");
             $node->parentNode->replaceChild($newNode, $node);
