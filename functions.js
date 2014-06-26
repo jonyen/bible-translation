@@ -144,9 +144,11 @@ function parse() {
 
       worker.onmessage = function(oEvent) {
         document.getElementById("output").innerHTML = oEvent.data;
+        document.getElementById("progress").style.visibility = "none";
       }
 
       worker.postMessage({"passages": passages, "passagesJSON": passagesJSON, "versesJSON": versesJSON});
+      document.getElementById("progress").style.display = "";
 }
 
 function selectText(containerid) { 
