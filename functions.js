@@ -119,32 +119,17 @@ function getVerses(str) {
 
 function parse() {
       text = document.getElementById("input").value;
-      passages = bcv.parse(text).osis();
 
-/*      xmlHttp = new XMLHttpRequest();
-      xmlHttp.open("GET", "application.php?passages=" + passages, false);
-      xmlHttp.send(null);
-      document.getElementById("output").innerHTML = xmlHttp.responseText;     
-
-      parser = new DOMParser();  */
+      passages = bcv.parse(text).osis(); 
       versesJSON = {};
       verses = getVerses(passages).forEach( function(v) { v = v.split("."); v[0] = osis2bible[v[0]]; versesJSON[v.join(".")] = 1; }); 
-
       passagesJSON = getJSON(passages);
-/*
-      xmlHttp2 = new XMLHttpRequest();
-      xmlHttp2.open("GET", "application2.php?passages=" + JSON.stringify(passagesJSON) + "&verses=" + JSON.stringify(versesJSON), false);
-      xmlHttp2.send(null); 
 
-      xmlHttp2.addEventListener("progress", function() { document.getElementById("progress").style.display = ""; }, false); 
-      xmlHttp2.addEventListener("load", function() { document.getElementById("progress").style.display = "none"; }, false); 
- 
-      document.getElementById("output").innerHTML += xmlHttp2.responseText;      */
       var worker = new Worker('application.js');
 
       worker.onmessage = function(oEvent) {
         document.getElementById("output").innerHTML = oEvent.data;
-        document.getElementById("progress").style.visibility = "none";
+        document.getElementById("progress").style.display = "none";
       }
 
       worker.postMessage({"passages": passages, "passagesJSON": passagesJSON, "versesJSON": versesJSON});
