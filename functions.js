@@ -92,14 +92,14 @@ function getVerses(str) {
 	curParse = bcv.parse(ref); 
         if (ref == endRef) {
 	  verses.push(ref);
-          return verses;
+          return verses.map(function(v) { return bcv.parse(v).osis(); });
 	}
         if (curParse.osis() == "") {
 	  verse = 1;
           chapter++;
 	  ref = book + " " + chapter + ":" + verse;
 	  if (chapter > end.c || bcv.parse(ref).osis() == "") {
-            return verses;
+            return verses.map(function(v) { return bcv.parse(v).osis(); });
 	  }
 	}
 	verses.push(ref);
