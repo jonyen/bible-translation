@@ -13,7 +13,6 @@ foreach(array_keys($translations) as $translation) {
   echo "<span class='simptip-position-right simptip-multiline simptip-smooth simptip-info simptip-fade' data-tooltip=\"Press Ctrl+C or Cmd+C to copy to clipboard after clicking on 'Select all'\"><a href='javascript:void(0);' id='$translation-select' onclick='selectText(\"$translation\")' class='button white noprint'>Select text</a></span>";
   echo "<div class='info noprint'>Show verse references <input type='checkbox' onchange='javascript:toggleVerses(\"$translation\")' checked /></div>";
   echo "<div id='$translation' class='translation'>";
-//  echo $translation;
   $bibleID = $translations[$translation]; 
   foreach($passages as $ref => $chapters) { 
     foreach($chapters as $chapter) {    
