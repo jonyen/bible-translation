@@ -117,6 +117,16 @@ function getVerses(str) {
   }
 }
 
+var worker = new Worker('application.js');
+
+worker.onmessage = function(oEvent) {
+  document.getElementById("output").innerHTML = oEvent.data;
+  document.getElementById("progress").style.display = "none";
+  document.getElementById("submit").innerHTML = "Retrieve passages";
+  document.getElementById("submit").className = "button white";
+  document.getElementById("submit").onclick = function onclick(event) { javascript: parse(); };
+}
+
 function parse() {
       text = document.getElementById("input").value;
 
@@ -125,17 +135,12 @@ function parse() {
       verses = getVerses(passages).forEach( function(v) { v = v.split("."); v[0] = osis2bible[v[0]]; versesJSON[v.join(".")] = 1; }); 
       passagesJSON = getJSON(passages);
 
-      var worker = new Worker('application.js');
-
-      worker.onmessage = function(oEvent) {
-        document.getElementById("output").innerHTML = oEvent.data;
-        document.getElementById("progress").style.display = "none";
-        document.getElementById("submit").innerHTML = "Retrieve passages";
-      }
 
       worker.postMessage({"passages": passages, "passagesJSON": passagesJSON, "versesJSON": versesJSON});
       document.getElementById("progress").style.display = "";
       document.getElementById("submit").innerHTML = "Retrieving passages...";
+      document.getElementById("submit").className = "button white disabled";
+      document.getElementById("submit").onclick = ""; 
 }
 
 function selectText(containerid) { 
@@ -153,10 +158,6 @@ function selectText(containerid) {
 
 function toggleVerses(translation) {
       verseNums = document.getElementById(translation).getElementsByClassName('versenum');
-      Array.prototype.filter.call(verseNums, function(verseNum) { 
-        verseNum.style.display = (verseNum.style.display == '' ? 'none' : '');
-      });
-      verseNums = document.getElementById(translation).getElementsByClassName('label');
       Array.prototype.filter.call(verseNums, function(verseNum) { 
         verseNum.style.display = (verseNum.style.display == '' ? 'none' : '');
       });

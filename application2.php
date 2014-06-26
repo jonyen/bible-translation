@@ -53,6 +53,12 @@ foreach(array_keys($translations) as $translation) {
             // set display:none for verses that aren't relevant, since removing the node runs into complications
             $node->setAttribute("style", "display:none");
           } 
+          if ($node->getAttribute("class") == "label") {
+            $val = $node->nodeValue;
+            $newNode = $dom->createElement("sup", "$val&nbsp;"); 
+            $newNode->setAttribute("class", "versenum");
+            $node->parentNode->replaceChild($newNode, $node);
+          }
         }
 
         if ($node->hasAttribute("data-usfm")) {
@@ -63,7 +69,6 @@ foreach(array_keys($translations) as $translation) {
         }
       }
 
-      // TODO: logic to handle chapter label
       $nodes = $dom->getElementsByTagName("div");
 
       foreach($nodes as $node) {
