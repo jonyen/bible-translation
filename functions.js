@@ -172,10 +172,13 @@ function loadText() {
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("GET", "init.html");
   xmlHttp.send(null);
-  document.getElementById("output").remove();
-  newNode = document.createElement("div");
-  newNode.id = "output";
-  document.body.appendChild(newNode);
 
-  document.getElementById("output").innerHTML = xmlHttp.responseText;
+  xmlHttp.onreadystatechange = function() {
+    document.getElementById("output").remove();
+    newNode = document.createElement("div");
+    newNode.id = "output";
+    document.body.appendChild(newNode);
+
+    document.getElementById("output").innerHTML = xmlHttp.responseText;
+  }
 }
