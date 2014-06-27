@@ -2,8 +2,7 @@
 $passages = explode(",", $_GET['passages']);
 $translations = ["ESV", "CNVT", "NVI", "SZ", "BPT"];
 
-// We use beta.biblegateway.com since the structure is easier to parse
-$biblegateway_url="https://new.biblegateway.com/passage/";
+$biblegateway_url="https://www.biblegateway.com/passage/";
 
 foreach ($translations as $translation) { 
         echo "<div class='block'>";

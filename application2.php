@@ -5,7 +5,7 @@ $translations = ["KRV" => "88", "KHSV" => "85"]; // mappings for Korean & Khmer 
 
 $khmer = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");       
 
-$biblegateway_url="https://new.biblegateway.com/passage/";
+$biblegateway_url="https://www.biblegateway.com/passage/";
 // Since Korean and Khmer are not available on Biblegateway, we use Bible.com
 $bible_com_url="https://www.bible.com/bible";
 
