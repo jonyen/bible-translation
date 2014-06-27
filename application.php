@@ -56,7 +56,7 @@ foreach ($translations as $translation) {
 /*		$result = preg_replace("/<ol .+?>.+?<\/ol>/s", "", $result);   */
 		$result = preg_replace("/(<sup class=\"versenum\">)/", "&#8203;$1", $result);  // adds zero-width space so that the verse num will break from previous word
 //		$result = preg_replace("/<span.+?class=\"text.+?\">/", "", $result);
-		$result = preg_replace("/<\/span>/", "", $result);
+//		$result = preg_replace("/<\/span>/", "", $result);
 		$result = preg_replace("/[\n\r\f]+/m","", $result);
 		echo $result;
 		echo "</div>";
