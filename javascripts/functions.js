@@ -117,7 +117,7 @@ function getVerses(str) {
   }
 }
 
-var worker = new Worker('application.js');
+var worker = new Worker('javascripts/application.js');
 
 worker.onmessage = function(oEvent) {
   document.getElementById("output").remove();
