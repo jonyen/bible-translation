@@ -3,6 +3,10 @@ div {
   font-size: 20pt;
 }
 
+div.ltr {
+  -webkit-margin-after: 1em; 
+}
+
 .fleuron {
   font-family: "Wingdings 2";
 }
