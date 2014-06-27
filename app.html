@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Bible Translation Tool</title>
+<link rel="stylesheet" type="text/css" href="stylesheets/simptip-mini-v1.0.2.css" media="all" />
+<link rel="stylesheet" type="text/css" href="stylesheets/simple_web_buttons.css" media="all" />
+<link rel="stylesheet" type="text/css" href="stylesheets/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+<style>
+@font-face {
+  font-family: "APHont";
+  src: url(assets/APHont-Regular_q15c.ttf) format('ttf');
+  src: url(assets/APHont-Regular_q15c.woff) format('woff');
+} 
+
+@font-face {
+  font-family: "Wingdings 2";
+  src: url(assets/Wingdings2.ttf) format('ttf');
+  src: url(assets/Wingdings2.woff) format('woff');
+} 
+
+@font-face {
+  font-family: "KhmerOS";
+  src: url(assets/KhmerOS.ttf) format('ttf');
+  src: url(assets/KhmerOS.woff) format('woff');
+}
+</style>
+
+<script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+<script>
+  WebFontConfig = {
+    custom: {
+      families: ['APHont', 'Wingdings 2', 'KhmerOS'],
+      testStrings: {
+        "Wingdings 2": 'cd',
+        "APHont": '“'
+      }
+    }
+  };
+</script>
+<script type="text/javascript" src="javascripts/en_bcv_parser.min.js"></script>
+<script type="text/javascript" src="javascripts/osis2bible.js"></script>
+<script type="text/javascript" src="javascripts/functions.js"></script>
+</head>
+
+<body onload="javascript: loadText();"> 
+<div id="instructions" class="noprint">
+<p>
+<b>Instructions</b><br />Type in the passage(s) that you would like to translate in the input form below. Then press "Retrieve passages" and wait as the translations are retrieved. Depending on how many passages you are searching for, this can take anywhere from 5 seconds to almost a minute. The results will be displayed below. You can copy and paste the results in the ECM template document (<a href="https://wiki.gracepointonline.org/5846">link</a>).</p>
+Type passage reference(s) here (i.e. John 3:16; Ps. 46:10; 1 John 1:9-10) <br />
+<input value="John 3:16; Ps. 46:10; 1 John 1:9-10" type="text" size="100" id="input" onkeydown="javascript: if (window.event.keyCode == 13) { parse(); };" autofocus /><br /><a href="#" id="submit" class="button white" onclick="javascript: parse();">Retrieve passages</a>
+
+<span id="progress" style="padding-left: 10px; display: none;"><img src="assets/ajax-loader.gif" /></span>
+
+</div>
+
+<div id="output"> </div>
+</body>
+</html>
