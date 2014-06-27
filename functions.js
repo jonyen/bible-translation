@@ -120,7 +120,6 @@ function getVerses(str) {
 var worker = new Worker('application.js');
 
 worker.onmessage = function(oEvent) {
-  document.body.style.display = "";
   document.getElementById("output").remove();
   newNode = document.createElement("div");
   newNode.id = "output";
@@ -169,3 +168,14 @@ function toggleVerses(translation) {
       });
 }
 
+function loadText() {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("get", "init.html");
+  xmlHttp.send(null);
+  document.getElementById("output").remove();
+  newNode = document.createElement("div");
+  newNode.id = "output";
+  document.body.appendChild(newNode);
+
+  document.getElementById("output").innerHTML = xmlHttp.responseText;
+}
