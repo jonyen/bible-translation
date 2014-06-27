@@ -120,7 +120,12 @@ function getVerses(str) {
 var worker = new Worker('application.js');
 
 worker.onmessage = function(oEvent) {
-  document.getElementById("output").innerHTML = oEvent.data;
+  document.getElementById("output").remove();
+  newNode = document.createElement("div");
+  newNode.id = "output";
+  newNode.createTextNode(oEvent.data);
+  document.body.appendChild(newNode);
+
   document.getElementById("progress").style.display = "none";
   document.getElementById("submit").innerHTML = "Retrieve passages";
   document.getElementById("submit").className = "button white";
