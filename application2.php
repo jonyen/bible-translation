@@ -88,10 +88,10 @@ foreach(array_keys($translations) as $translation) {
           if ($node->getAttribute("class") == "d") {
             $node->setAttribute("style", "display:none");
           }
-          if ($node->getAttribute("class") == "p") {
-            $newNode = $dom->createElement("p", $node->nodeValue);
-            $node->parentNode->replacechild($newNode, $node);
-          }
+//          if ($node->getAttribute("class") == "p") {
+//            $newNode = $dom->createElement("p", $node->nodeValue);
+//            $node->parentNode->replacechild($newNode, $node);
+//          }
         }
       }
 
