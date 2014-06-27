@@ -123,7 +123,8 @@ worker.onmessage = function(oEvent) {
   document.getElementById("output").remove();
   newNode = document.createElement("div");
   newNode.id = "output";
-  newNode.createTextNode(oEvent.data);
+  text = document.createTextNode(oEvent.data);
+  newNode.appendchild(text);
   document.body.appendChild(newNode);
 
   document.getElementById("progress").style.display = "none";
