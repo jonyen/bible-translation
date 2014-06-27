@@ -123,10 +123,9 @@ worker.onmessage = function(oEvent) {
   document.getElementById("output").remove();
   newNode = document.createElement("div");
   newNode.id = "output";
-  text = document.createTextNode(oEvent.data);
-  newNode.appendChild(text);
   document.body.appendChild(newNode);
 
+  document.getElementById("output").innerHTML = oEvent.data; 
   document.getElementById("progress").style.display = "none";
   document.getElementById("submit").innerHTML = "Retrieve passages";
   document.getElementById("submit").className = "button white";
