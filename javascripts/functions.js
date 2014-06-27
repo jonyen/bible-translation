@@ -170,7 +170,7 @@ function toggleVerses(translation) {
 
 function loadText() {
   var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("GET", "init.html");
+  xmlHttp.open("GET", "../assets/init.html");
   xmlHttp.send(null);
 
   xmlHttp.onreadystatechange = function() {
