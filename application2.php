@@ -85,6 +85,9 @@ foreach(array_keys($translations) as $translation) {
             $chapter_node = ($node->firstChild->nextSibling);
             $chapter_node->setAttribute("style", "visibility:hidden");
           }
+          if($node->getAttribute("class") == "d") {
+            $node->setAttribute("style", "display:none");
+          }
         }
       }
 
