@@ -18,6 +18,7 @@ div {
 
 div.ltr {
   -webkit-margin-after: 1em; 
+  margin-bottom: 1em;
 }
 
 .fleuron {
