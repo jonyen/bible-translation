@@ -120,6 +120,7 @@ function getVerses(str) {
 var worker = new Worker('application.js');
 
 worker.onmessage = function(oEvent) {
+  document.body.style.display = "";
   document.getElementById("output").remove();
   newNode = document.createElement("div");
   newNode.id = "output";
