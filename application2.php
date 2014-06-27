@@ -83,10 +83,14 @@ foreach(array_keys($translations) as $translation) {
         if ($node->hasAttribute("class")) {
           if(preg_match("/^chapter/", $node->getAttribute("class"))) {
             $chapter_node = ($node->firstChild->nextSibling);
-            $chapter_node->setAttribute("style", "visibility:hidden");
+            $chapter_node->setAttribute("style", "display:none");
           }
-          if($node->getAttribute("class") == "d") {
+          if ($node->getAttribute("class") == "d") {
             $node->setAttribute("style", "display:none");
+          }
+          if ($node->getAttribute("class") == "p") {
+            $newNode = $dom->createElement("p", $node->nodeValue);
+            $node->parentNode->replacechild($newNode, $node);
           }
         }
       }
