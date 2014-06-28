@@ -1,3 +1,3 @@
 <?php
-header("Location: app.html");
+header("Location: http://bible-translation.herokuapp.com/app.html");
 ?>
