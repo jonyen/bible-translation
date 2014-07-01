@@ -40,7 +40,7 @@ foreach ($translations as $translation) {
 		$result = $matches[1]; 
 
 		// remove passage display 
-		$result = preg_replace("/<div class=\"passage-display\">.+?<\/div>/s", "", $result); 
+		$result = preg_replace("/<div class=\"version-$translation\">.+?<\/div>/s", "", $result); 
 
 	        // change chapter number to verse number 1
                 $result = preg_replace("/<span class=\"chapternum\">.+?<\/span>/", "<sup class=\"versenum\">1&nbsp;</sup>", $result);
