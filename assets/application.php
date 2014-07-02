@@ -49,7 +49,7 @@ foreach ($translations as $translation) {
 		$result = preg_replace("/<h3>.+?<\/h3>/s", "", $result);
 
 		// remove crossrefs and footnotes 
-		$result = preg_replace("/<sup data-(cr|fn)=['\"].+?['\"] class=['\"](crossref|footnote)['\"].+?>.?<\/sup>/s", "", $result); 
+		$result = preg_replace("/<sup data-(cr|fn)=['\"].+?['\"] class=['\"](crossref|crossreference|footnote)['\"].+?>.+?<\/sup>/s", "", $result); 
 		$result = preg_replace("/<div class=\"(crossrefs hidden|footnotes)\">.+?<\/div>/s", "", $result);  
 //		$result = preg_replace("/<h4>(Cross references|Footnotes):<\/h4>/", "", $result); 
 /*		$result = preg_replace("/<ol .+?>.+?<\/ol>/s", "", $result);   */
