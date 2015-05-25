@@ -1,6 +1,6 @@
 <?php 
 $passages = explode(",", $_GET['passages']);
-$translations = ["ESV", "CNVT", "NVI", "RUSZ", "BPT"];
+$translations = ["ESV", "CNVT", "NVI", "ERV-RU", "BPT"];
 
 $biblegateway_url="https://www.biblegateway.com/passage/";
 
@@ -40,7 +40,7 @@ foreach ($translations as $translation) {
 		$result = $matches[1]; 
 
 		// remove passage display 
-		$result = preg_replace("/<h1 class=\"passage-display\">.+?<\/h1>/s", "", $result); 
+		$result = preg_replace("/<h1 class=\"passage-display(-bcv)\">.+?<\/h1>/s", "", $result); 
 
 	        // change chapter number to verse number 1
                 $result = preg_replace("/<span class=\"chapternum\">.+?<\/span>/", "<sup class=\"versenum\">1&nbsp;</sup>", $result);
