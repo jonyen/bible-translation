@@ -36,8 +36,10 @@ foreach ($translations as $translation) {
 		}
 
 		echo  "<div style='text-align: center'><span class='fleuron'>d</span>  $matches[1]  <span class='fleuron'>c</span></div>"; 
-		preg_match("/(<div class=\"version-$translation result-text-style-normal text-html \">.+?)<div class=\"publisher-info-bottom\">/s", $result, $matches);
+		preg_match("/(<div class=\"version-$translation result-text-style-normal text-html \">.+?)<div class=\"publisher-info-bottom.+?\">/s", $result, $matches);
 		$result = $matches[1]; 
+
+ //		echo "\n\n*****" . $result . "\n\n\n";
 
 		// remove passage display 
 		$result = preg_replace("/<h1 class=\"passage-display\">.+?<\/h1>/s", "", $result); 
