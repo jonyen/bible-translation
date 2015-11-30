@@ -1,6 +1,6 @@
 <?php 
 $passages = explode(",", $_GET['passages']);
-$translations = ["ESV", "CNVT", "NVI", "SZ", "BPT"];
+$translations = ["ESV", "CNVT", "NVI", "RUSV", "BPT"];
 
 $biblegateway_url="https://www.biblegateway.com/passage/";
 
