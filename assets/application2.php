@@ -1,9 +1,10 @@
 <?php 
-$passages = json_decode($_GET['passages']);
-$verses = json_decode($_GET['verses'], true);
+$passages = json_decode(urldecode($_GET['passages']));
+$verses = json_decode(urldecode($_GET['verses']), true);
+
 $translations = ["KRV" => "88", "KHSV" => "85"]; // mappings for Korean & Khmer on Bible.com
 
-$khmer = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");       
+$khmer_nums = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");
 
 $biblegateway_url="https://www.biblegateway.com/passage/";
 // Since Korean and Khmer are not available on Biblegateway, we use Bible.com
@@ -28,7 +29,7 @@ foreach(array_keys($translations) as $translation) {
 
       $verseNums = array_pop(explode(" ", trim($matches[1]))); 
       if ($translation == "KHSV") {
-        $verseNums = strtr($verseNums, $khmer);
+        $verseNums = strtr($verseNums, $khmer_nums);
       }
 
       echo "<div class='passages'>";
@@ -39,6 +40,8 @@ foreach(array_keys($translations) as $translation) {
       curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
       $result = curl_exec($curl_handle); 
+
+      echo $result;
 
       preg_match("/<article class='reader'.+?data-book-human='(.+?)'.+?data-chapter='(.+?)'.+?id='reader'>/", $result, $matches); 
       $title = $matches[1];
@@ -61,7 +64,7 @@ foreach(array_keys($translations) as $translation) {
           if ($node->getAttribute("class") == "label") {
             $val = $node->nodeValue;
             if ($translation == "KHSV") {
-              $val = strtr($val, $khmer);
+              $val = strtr($val, $khmer_nums);
             }
             $newNode = $dom->createElement("sup", "$val&nbsp;"); 
             $newNode->setAttribute("class", "versenum");
