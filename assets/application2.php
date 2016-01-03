@@ -2,6 +2,9 @@
 $passages = json_decode(urldecode($_GET['passages']));
 $verses = json_decode(urldecode($_GET['verses']), true);
 
+$passages = "";
+$verses = "";
+
 $translations = ["KRV" => "88", "KHSV" => "85"]; // mappings for Korean & Khmer on Bible.com
 
 $khmer_nums = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");
