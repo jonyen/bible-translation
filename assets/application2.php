@@ -1,6 +1,6 @@
 <?php 
-$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
-$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
+//$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
+//$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
 
 $passages = json_decode(urldecode($_GET['passages']));
 $verses = json_decode(urldecode($_GET['verses']), true);
@@ -45,13 +45,14 @@ foreach(array_keys($translations) as $translation) {
 
       $result = curl_exec($curl_handle); 
 
-      echo $result;
+//      echo $result;
 
       //preg_match("/<article class='reader'.+?data-book-human='(.+?)'.+?data-chapter='(.+?)'.+?id='reader'>/", $result, $matches); 
-      preg_match("/<a class=\'book ng-binding.+?>(.+?)<\/a>/", $result, $matches); 
+ //     echo "*************************\n*************************\n*************************";
+      preg_match("/<a class='book.+?>(.+?)<\/a>/", $result, $matches); 
       $book = $matches[1];
 
- //     echo "++++++++++++++++++++++++++++\n++++++++++++++++++++++++\n+++++++++++++++++++++++++";
+  //    echo "++++++++++++++++++++++++++++\n++++++++++++++++++++++++\n+++++++++++++++++++++++++";
 
 
       echo  "<div style='text-align: center'><span class='fleuron'>d</span>  $book $verseNums  <span class='fleuron'>c</span></div>";
