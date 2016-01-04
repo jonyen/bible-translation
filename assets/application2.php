@@ -1,9 +1,9 @@
 <?php 
+//$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
+//$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
+
 $passages = json_decode(urldecode($_GET['passages']));
 $verses = json_decode(urldecode($_GET['verses']), true);
-
-$passages = "";
-$verses = "";
 
 $translations = ["KRV" => "88", "KHSV" => "85"]; // mappings for Korean & Khmer on Bible.com
 
@@ -51,9 +51,13 @@ foreach(array_keys($translations) as $translation) {
 
       echo  "<div style='text-align: center'><span class='fleuron'>d</span>  $title $verseNums  <span class='fleuron'>c</span></div>";
 
-      preg_match("/<!-- \/ Primary version content -->(.+?)<!-- \/ Secondary version content -->/s", $result, $matches);
+      //preg_match("/<!-- \/ Primary version content -->(.+?)<!-- \/ Secondary version content -->/s", $result, $matches);
+      preg_match("/<div class=\"version.+?>(.+?)<div class='copyright'>/s", $result, $matches);
       $content = $matches[1];
       $dom = new DOMDocument();
+//      echo "---START----\n";
+//      print_r($content);
+//      echo "---END----\n";
       $dom->loadHTML($content);
  
       $nodes = $dom->getElementsByTagName("span"); 
