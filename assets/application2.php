@@ -1,6 +1,6 @@
 <?php 
-//$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
-//$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
+$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
+$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
 
 $passages = json_decode(urldecode($_GET['passages']));
 $verses = json_decode(urldecode($_GET['verses']), true);
@@ -22,6 +22,7 @@ foreach(array_keys($translations) as $translation) {
   $bibleID = $translations[$translation]; 
   foreach($passages as $ref => $chapters) { 
     foreach($chapters as $chapter) {    
+//      echo "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n$$$$$$$$$$$$$$$$$$$$$$$$\n$$$$$$$$$$$$$$$$$$$$$$$$";
       $verseNums = curl_init();
       curl_setopt($verseNums, CURLOPT_URL, $biblegateway_url);
       curl_setopt($verseNums, CURLOPT_POSTFIELDS, "search=$ref&version=ESV");
@@ -46,10 +47,14 @@ foreach(array_keys($translations) as $translation) {
 
       echo $result;
 
-      preg_match("/<article class='reader'.+?data-book-human='(.+?)'.+?data-chapter='(.+?)'.+?id='reader'>/", $result, $matches); 
-      $title = $matches[1];
+      //preg_match("/<article class='reader'.+?data-book-human='(.+?)'.+?data-chapter='(.+?)'.+?id='reader'>/", $result, $matches); 
+      preg_match("/<a class=\"book ng-binding.+?>(.+?)</a>/", $result, $matches); 
+      $book = $matches[1];
 
-      echo  "<div style='text-align: center'><span class='fleuron'>d</span>  $title $verseNums  <span class='fleuron'>c</span></div>";
+ //     echo "++++++++++++++++++++++++++++\n++++++++++++++++++++++++\n+++++++++++++++++++++++++";
+
+
+      echo  "<div style='text-align: center'><span class='fleuron'>d</span>  $book $verseNums  <span class='fleuron'>c</span></div>";
 
       //preg_match("/<!-- \/ Primary version content -->(.+?)<!-- \/ Secondary version content -->/s", $result, $matches);
       preg_match("/<div class=\"version.+?>(.+?)<div class='copyright'>/s", $result, $matches);
