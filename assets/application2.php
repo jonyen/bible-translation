@@ -48,7 +48,7 @@ foreach(array_keys($translations) as $translation) {
       echo $result;
 
       //preg_match("/<article class='reader'.+?data-book-human='(.+?)'.+?data-chapter='(.+?)'.+?id='reader'>/", $result, $matches); 
-      preg_match("/<a class=\"book ng-binding.+?>(.+?)</a>/", $result, $matches); 
+      preg_match("/<a class=\'book ng-binding.+?>(.+?)<\/a>/", $result, $matches); 
       $book = $matches[1];
 
  //     echo "++++++++++++++++++++++++++++\n++++++++++++++++++++++++\n+++++++++++++++++++++++++";
