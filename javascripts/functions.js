@@ -1,4 +1,4 @@
-var bcv = new bcv_parser; 
+var bcv = new bcv_parser;
 
 function getJSON(seq) {
   var json = {};
@@ -24,7 +24,7 @@ function getChapters(ref) {
         chapter = start.c || 1;
         while (true) {
 	  // force a "1" verse so that it gets detected in special cases such as Philemon or 2 John
-          if (bcv.parse(book + " " + chapter + ":1").osis() == "" || chapter > end.c) {  
+          if (bcv.parse(book + " " + chapter + ":1").osis() == "" || chapter > end.c) {
             return chapters;
           }
         chapters.push(book + " " + chapter);
@@ -89,7 +89,7 @@ function getVerses(str) {
       var verses = [];
       while (true) {
 	ref = book + " " + chapter + ":" + verse;
-	curParse = bcv.parse(ref); 
+	curParse = bcv.parse(ref);
         if (ref == endRef) {
 	  verses.push(ref);
           return verses.map(function(v) { return bcv.parse(v).osis(); });
@@ -125,7 +125,7 @@ worker.onmessage = function(oEvent) {
   newNode.id = "output";
   document.body.appendChild(newNode);
 
-  document.getElementById("output").innerHTML = oEvent.data; 
+  document.getElementById("output").innerHTML = oEvent.data;
   document.getElementById("progress").style.display = "none";
   document.getElementById("submit").innerHTML = "Retrieve passages";
   document.getElementById("submit").className = "button white";
@@ -135,9 +135,9 @@ worker.onmessage = function(oEvent) {
 function parse() {
       text = document.getElementById("input").value;
 
-      passages = bcv.parse(text).osis(); 
+      passages = bcv.parse(text).osis();
       versesJSON = {};
-      verses = getVerses(passages).forEach( function(v) { v = v.split("."); v[0] = osis2bible[v[0]]; versesJSON[v.join(".")] = 1; }); 
+      verses = getVerses(passages).forEach( function(v) { v = v.split("."); v[0] = osis2bible[v[0]]; versesJSON[v.join(".")] = 1; });
       passagesJSON = getJSON(passages);
 
 
@@ -145,25 +145,25 @@ function parse() {
       document.getElementById("progress").style.display = "";
       document.getElementById("submit").innerHTML = "Retrieving passages...";
       document.getElementById("submit").className = "button white disabled";
-      document.getElementById("submit").onclick = ""; 
+      document.getElementById("submit").onclick = "";
 }
 
-function selectText(containerid) { 
+function selectText(containerid) {
         if (document.selection) {
             var range = document.body.createTextRange();
-            range.moveToElementText(document.getElementById(containerid));            
-	    range.select();        
-	} else if (window.getSelection) {            
-	    window.getSelection().removeAllRanges();            
-	    var range = document.createRange();            
-	    range.selectNode(document.getElementById(containerid));            
-	    window.getSelection().addRange(range);        
-	}    
+            range.moveToElementText(document.getElementById(containerid));
+	    range.select();
+	} else if (window.getSelection) {
+	    window.getSelection().removeAllRanges();
+	    var range = document.createRange();
+	    range.selectNode(document.getElementById(containerid));
+	    window.getSelection().addRange(range);
+	}
 }
 
 function toggleVerses(translation) {
       verseNums = document.getElementById(translation).getElementsByClassName('versenum');
-      Array.prototype.filter.call(verseNums, function(verseNum) { 
+      Array.prototype.filter.call(verseNums, function(verseNum) {
         verseNum.style.display = (verseNum.style.display == '' ? 'none' : '');
       });
 }
