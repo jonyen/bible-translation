@@ -63,7 +63,7 @@ foreach(array_keys($translations) as $translation) {
       $dom = new DOMDocument();
 //      echo "---START----\n";
 //      print_r($content);
-//      echo "---END----\n";
+ //     echo "---END----\n";
       $dom->loadHTML($content);
  
       $nodes = $dom->getElementsByTagName("span"); 
@@ -104,11 +104,19 @@ foreach(array_keys($translations) as $translation) {
           if ($node->getAttribute("class") == "d") {
             $node->setAttribute("style", "display:none");
           }
+          if ($node->getAttribute("class") == "copyright") {
+            $node->setAttribute("style", "display:none");
+          }
 //          if ($node->getAttribute("class") == "p") {
 //            $newNode = $dom->createElement("p", $node->nodeValue);
 //            $node->parentNode->replacechild($newNode, $node);
 //          }
         }
+        if ($node->hasAttribute("id")) {
+          if ($node->getAttribute("id") == "site-footer") {
+            $node->setAttribute("style", "display:none");
+          }
+	}
       }
 
 
