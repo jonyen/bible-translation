@@ -1,11 +1,11 @@
-<?php 
+<?php
 //$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
 //$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
 
 $passages = json_decode(urldecode($_GET['passages']));
 $verses = json_decode(urldecode($_GET['verses']), true);
 
-$translations = ["KRV" => "86", "KHSV" => "85"]; // mappings for Korean & Khmer on Bible.com
+$translations = ["KRV" => "86", "KHSV" => "85", "JLB" => "83"]; // mappings for Korean & Khmer on Bible.com
 
 $khmer_nums = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");
 
@@ -19,9 +19,9 @@ foreach(array_keys($translations) as $translation) {
   echo "<span class='simptip-position-right simptip-multiline simptip-smooth simptip-info simptip-fade' data-tooltip=\"Press Ctrl+C or Cmd+C to copy to clipboard after clicking on 'Select all'\"><a href='javascript:void(0);' id='$translation-select' onclick='selectText(\"$translation\")' class='button white noprint'>Select text</a></span>";
   echo "<div class='info noprint'>Show verse references <input type='checkbox' onchange='javascript:toggleVerses(\"$translation\")' checked /></div>";
   echo "<div id='$translation' class='translation'>";
-  $bibleID = $translations[$translation]; 
-  foreach($passages as $ref => $chapters) { 
-    foreach($chapters as $chapter) {    
+  $bibleID = $translations[$translation];
+  foreach($passages as $ref => $chapters) {
+    foreach($chapters as $chapter) {
 //      echo "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n$$$$$$$$$$$$$$$$$$$$$$$$\n$$$$$$$$$$$$$$$$$$$$$$$$";
       $verseNums = curl_init();
       curl_setopt($verseNums, CURLOPT_URL, $biblegateway_url);
@@ -31,7 +31,7 @@ foreach(array_keys($translations) as $translation) {
       $verseNums = curl_exec($verseNums);
       preg_match("/<h1 class=\"bcv\">(.+?)<\/h1>/", $verseNums, $matches);
 
-      $verseNums = array_pop(explode(" ", trim($matches[1]))); 
+      $verseNums = array_pop(explode(" ", trim($matches[1])));
       if ($translation == "KHSV") {
         $verseNums = strtr($verseNums, $khmer_nums);
       }
@@ -43,13 +43,13 @@ foreach(array_keys($translations) as $translation) {
       curl_setopt($curl_handle, CURLOPT_URL, "$bible_com_url/$bibleID/$passage");
       curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 
-      $result = curl_exec($curl_handle); 
+      $result = curl_exec($curl_handle);
 
 //      echo $result;
 
-      //preg_match("/<article class='reader'.+?data-book-human='(.+?)'.+?data-chapter='(.+?)'.+?id='reader'>/", $result, $matches); 
+      //preg_match("/<article class='reader'.+?data-book-human='(.+?)'.+?data-chapter='(.+?)'.+?id='reader'>/", $result, $matches);
  //     echo "*************************\n*************************\n*************************";
-      preg_match("/<a class='book.+?>(.+?)<\/a>/", $result, $matches); 
+      preg_match("/<a class='book.+?>(.+?)<\/a>/", $result, $matches);
       $book = $matches[1];
 
   //    echo "++++++++++++++++++++++++++++\n++++++++++++++++++++++++\n+++++++++++++++++++++++++";
@@ -65,21 +65,21 @@ foreach(array_keys($translations) as $translation) {
 //      print_r($content);
  //     echo "---END----\n";
       $dom->loadHTML($content);
- 
-      $nodes = $dom->getElementsByTagName("span"); 
 
-      foreach($nodes as $node) { 
+      $nodes = $dom->getElementsByTagName("span");
+
+      foreach($nodes as $node) {
         if ($node->hasAttribute("class")) {
           if ($node->getAttribute("class") == "heading" || $node->getAttribute("class") == "note x") {
             // set display:none for verses that aren't relevant, since removing the node runs into complications
             $node->setAttribute("style", "display:none");
-          } 
+          }
           if ($node->getAttribute("class") == "label") {
             $val = $node->nodeValue;
             if ($translation == "KHSV") {
               $val = strtr($val, $khmer_nums);
             }
-            $newNode = $dom->createElement("sup", "$val&nbsp;"); 
+            $newNode = $dom->createElement("sup", "$val&nbsp;");
             $newNode->setAttribute("class", "versenum");
             $node->parentNode->replaceChild($newNode, $node);
           }
@@ -89,7 +89,7 @@ foreach(array_keys($translations) as $translation) {
           if (!$verses[$node->getAttribute("data-usfm")]) {
             // set display:none for verses that aren't relevant, since removing the node runs into complications
             $node->setAttribute("style", "display:none");
-          }    
+          }
         }
       }
 
