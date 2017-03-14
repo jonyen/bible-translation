@@ -107,6 +107,9 @@ foreach(array_keys($translations) as $translation) {
           if ($node->getAttribute("class") == "copyright") {
             $node->setAttribute("style", "display:none");
           }
+          if ($node->getAttribute("class") == "ng-hide") {
+            $node->setAttribute("style", "display:none");
+          }
 //          if ($node->getAttribute("class") == "p") {
 //            $newNode = $dom->createElement("p", $node->nodeValue);
 //            $node->parentNode->replacechild($newNode, $node);
