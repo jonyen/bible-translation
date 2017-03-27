@@ -10,8 +10,8 @@ $passages = json_decode(urldecode($_GET['passages']));
 $verses = json_decode(urldecode($_GET['verses']), true);
 
 
-$translations = ["ESV" => "1"]; // mappings for Korean, Khmer, & Japanese on Bible.com
-//$translations = ["KRV" => "86", "KHSV" => "85", "JLB" => "83"]; // mappings for Korean, Khmer, & Japanese on Bible.com
+//$translations = ["ESV" => "1"]; // mappings for Korean, Khmer, & Japanese on Bible.com
+$translations = ["KRV" => "86", "KHSV" => "85", "JLB" => "83"]; // mappings for Korean, Khmer, & Japanese on Bible.com
 
 $khmer_nums = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");
 
@@ -52,7 +52,7 @@ foreach(array_keys($translations) as $translation) {
 
       $result = curl_exec($curl_handle);
 
-      echo $result;
+//      echo $result;
 /*      echo "\n\n$$$$\n";
       echo "$bible_com_url/$bibleID/$passage\n";
       echo $result;
