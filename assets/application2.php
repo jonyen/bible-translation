@@ -1,6 +1,6 @@
 <?php
-$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
-$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
+//$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
+//$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
 
 $bcv_books = ["Gen", "Exod", "Lev", "Num", "Deut", "Josh", "Judg", "Ruth", "1Sam", "2Sam", "1Kgs", "2Kgs", "1Chr", "2Chr", "Ezra", "Neh", "Esth", "Job", "Ps", "Prov", "Eccl", "Song", "Isa", "Jer", "Lam", "Ezek", "Dan", "Hos", "Joel", "Amos", "Obad", "Jonah", "Mic", "Nah", "Hab", "Zeph", "Hag", "Zech", "Mal", "Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor", "Gal", "Eph", "Phil", "Col", "1Thess", "2Thess", "1Tim", "2Tim", "Titus", "Phlm", "Heb", "Jas", "1Pet", "2Pet", "1John", "2John", "3John", "Judge", "Rev"];
 
