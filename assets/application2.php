@@ -145,7 +145,7 @@ foreach(array_keys($translations) as $translation) {
 
       foreach($nodes as $node) {
         if ($node->hasAttribute("class")) {
-          if ($node->getAttribute("class") == "heading" || $node->getAttribute("class") == "note x") {
+          if ($node->getAttribute("class") == "heading" || $node->getAttribute("class") == "note x" || $node->getAttribute("class") == "note f") {
             // set display:none for verses that aren't relevant, since removing the node runs into complications
             $node->setAttribute("style", "display:none");
           }
