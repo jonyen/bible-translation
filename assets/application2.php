@@ -210,7 +210,7 @@ foreach(array_keys($translations) as $translation) {
       }
 
 
-      echo $dom->saveHTML();
+//      echo $dom->saveHTML();
       echo "</div>";
     }
   }
