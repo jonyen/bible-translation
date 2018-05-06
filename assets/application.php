@@ -1,4 +1,4 @@
-<?php
+<?php 
 $passages = explode(",", $_GET['passages']);
 $translations = ["ESV", "CNVT", "NVI", "RUSV", "BPT", "FSV", "KLB"];
 
@@ -39,8 +39,6 @@ foreach ($translations as $translation) {
 		preg_match("/(<div class=\"version-$translation result-text-style-normal text-html \">.+?)<div class=\"publisher-info-bottom.+?\">/s", $result, $matches);
 		$result = $matches[1];
 
- //		echo "\n\n*****" . $result . "\n\n\n";
-
 		// remove passage display
 		$result = preg_replace("/<h1 class=\"passage-display\">.+?<\/h1>/s", "", $result);
 
@@ -53,11 +51,7 @@ foreach ($translations as $translation) {
 		// remove crossrefs and footnotes
 		$result = preg_replace("/<sup data-(cr|fn)=['\"].+?['\"] class=['\"](crossref|crossreference|footnote)['\"].+?>.+?<\/sup>/s", "", $result);
 		$result = preg_replace("/<div class=\"(crossrefs hidden|footnotes)\">.+?<\/div>/s", "", $result);
-//		$result = preg_replace("/<h4>(Cross references|Footnotes):<\/h4>/", "", $result);
-/*		$result = preg_replace("/<ol .+?>.+?<\/ol>/s", "", $result);   */
 		$result = preg_replace("/(<sup class=\"versenum\">)/", "&#8203;$1", $result);  // adds zero-width space so that the verse num will break from previous word
-//		$result = preg_replace("/<span.+?class=\"text.+?\">/", "", $result);
-//		$result = preg_replace("/<\/span>/", "", $result);
 		$result = preg_replace("/[\n\r\f]+/m","", $result);
 		echo $result;
 		echo "</div>";

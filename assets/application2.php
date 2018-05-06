@@ -2,6 +2,8 @@
 //$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
 //$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
 
+//$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22]}";
+//$_GET['verses'] = "{%22JHN.3.16%22}";
 // ********************* //
 // Constants
 // ********************* //
@@ -133,15 +135,28 @@ foreach(array_keys($translations) as $translation) {
 
       $passage_array = explode(" ", $chapter);
       $book = $book_translations[$translation][array_search($passage_array[0], $bcv_books)];
-      echo  "<div style='text-align: center'><span class='fleuron'>d</span>  $book $verseNums  <span class='fleuron'>c</span></div>";
+      echo "<div style='text-align: center'><span class='fleuron'>d</span>  $book $verseNums  <span class='fleuron'>c</span></div>";
 
-      preg_match("/<div class=\"version vid.+?>(.*)<div class=\"version-copyright/s", $result, $matches);
-      $content = $matches[1];
+      // enable user error handling
+      libxml_use_internal_errors(true);
 
       $dom = new DOMDocument();
-      $dom->loadHTML($content);
 
-      $nodes = $dom->getElementsByTagName("span");
+      if (!$dom->loadHTML($result)) {
+        foreach (libxml_get_errors() as $error) {
+          // handle errors here
+        }
+
+        libxml_clear_errors();
+      }
+
+      $finder = new DomXPath($dom);
+      $classname = "bible-reader";
+      $nodes = $finder->query("//span[contains(@class, '$classname')]");
+
+//      print_r($nodes[0]);
+
+//      $nodes = $dom->getElementsByTagName("span");
 
       foreach($nodes as $node) {
         if ($node->hasAttribute("class")) {
@@ -168,7 +183,8 @@ foreach(array_keys($translations) as $translation) {
         }
       }
 
-      $nodes = $dom->getElementsByTagName("div");
+      $nodes = $finder->query("//div[contains(@class, '$classname')]");
+      //$nodes = $dom->getElementsByTagName("div");
 
       foreach($nodes as $node) {
         if ($node->hasAttribute("class")) {
