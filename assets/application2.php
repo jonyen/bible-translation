@@ -82,13 +82,13 @@ $KHSV_books = [
 "វិវរណៈ"];
 $JLB_books = [ "創世記", "出エジプト記", "レビ記", "民数記", "申命記", "ヨシュア記", "士師記", "ルツ記", "サムエル記Ⅰ", "サムエル記Ⅱ", "列王記Ⅰ", "列王記Ⅱ", "歴代誌Ⅰ", "歴代誌Ⅱ", "エズラ記", "ネヘミヤ 記", "エステル 記", "ヨブ 記", "詩篇", "箴言 知恵の泉", "伝道者の書", "雅歌", "イザヤ書", "エレミヤ書", "哀歌", "エゼキエル書", "ダニエル書", "ホセア書", "ヨエル書", "アモス書", "オバデヤ書", "ヨナ書", "ミカ書", "ナホム書", "ハバクク書", "ゼパニヤ書", "ハガイ書", "ゼカリヤ書", "マラキ書", "マタイの福音書", "マルコの福音書", "ルカの 福音書", "ヨハネの福音書", "使徒の働き", "ローマ人への手紙", "コリント人への手紙Ⅰ", "コリント人への手紙Ⅱ", "ガラテヤ人への手紙", "エペソ人への手紙", "ピリピ人への手紙", "コロサイ 人への手紙", "テサロニケ人への手紙Ⅰ", "テサロニケ人への手紙Ⅱ", "テモテへの手紙Ⅰ", "テモテへの手紙Ⅱ", "テトスへの手紙", "ピレモンへの手紙", "へブル人への手紙", "ヤコブの手紙", "ペ テロの手紙Ⅰ", "ペテロの手紙Ⅱ", "ヨハネの手紙Ⅰ", "ヨハネの手紙Ⅱ", "ヨハネの手紙Ⅲ", "ユダの手紙", "ヨハネの黙示録" ];
 
-$book_translations = ["KRV" => $KRV_books, "KHSV" => $KHSV_books, "JLB" => $JLB_books];
+$book_translations = ["KRV" => $KRV_books, "KHSV" => $KHSV_books, "JLB" => $JLB_books, "FCB" => $bcv_books];
 
 $passages = json_decode(urldecode($_GET['passages']));
 $verses = json_decode(urldecode($_GET['verses']), true);
 
 //$translations = ["ESV" => "1"]; // mappings for Korean, Khmer, & Japanese on Bible.com
-$translations = ["KRV" => "86", "KHSV" => "85", "JLB" => "83"]; // mappings for Korean, Khmer, & Japanese on Bible.com
+$translations = ["KRV" => "86", "KHSV" => "85", "JLB" => "83", "FCB" => "1619"]; // mappings for Korean, Khmer, & Japanese on Bible.com
 
 $khmer_nums = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");
 
