@@ -151,14 +151,17 @@ foreach(array_keys($translations) as $translation) {
       }
 
       $finder = new DomXPath($dom);
-      $classname = "bible-reader";
+      $classname = "verse";
       $nodes = $finder->query("//span[contains(@class, '$classname')]");
 
+//      print_r($nodes);
+
+      $dom = new DOMDocument();
 //      print_r($nodes[0]);
 
 //      $nodes = $dom->getElementsByTagName("span");
 
-      foreach($nodes as $node) {
+      foreach($nodes as $node) { 
         if ($node->hasAttribute("class")) {
           if ($node->getAttribute("class") == "heading" || $node->getAttribute("class") == "note x" || $node->getAttribute("class") == "note f") {
             // set display:none for verses that aren't relevant, since removing the node runs into complications
@@ -181,9 +184,11 @@ foreach(array_keys($translations) as $translation) {
             $node->setAttribute("style", "display:none");
           }
         }
+        $node = $dom->importNode($node, true);
+        echo $dom->saveHTML($node);
       }
 
-      $nodes = $finder->query("//div[contains(@class, '$classname')]");
+  /*    $nodes = $finder->query("//div[contains(@class, '$classname')]");
       //$nodes = $dom->getElementsByTagName("div");
 
       foreach($nodes as $node) {
@@ -207,7 +212,7 @@ foreach(array_keys($translations) as $translation) {
             $node->setAttribute("style", "display:none");
           }
 	}
-      }
+      } */
 
 
 //      echo $dom->saveHTML();
