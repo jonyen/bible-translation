@@ -2,6 +2,8 @@
 //$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22],%22Ps.46.10%22:[%22Ps%2046%22],%221John.1.9-1John.1.10%22:[%221John%201%22]}";
 //$_GET['verses'] = "{%22JHN.3.16%22:1,%22PSA.46.10%22:1,%221JN.1.9%22:1,%221JN.1.10%22:1}";
 
+//$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22]}";
+//$_GET['verses'] = "{%22JHN.3.16%22}";
 // ********************* //
 // Constants
 // ********************* //
@@ -80,13 +82,13 @@ $KHSV_books = [
 "វិវរណៈ"];
 $JLB_books = [ "創世記", "出エジプト記", "レビ記", "民数記", "申命記", "ヨシュア記", "士師記", "ルツ記", "サムエル記Ⅰ", "サムエル記Ⅱ", "列王記Ⅰ", "列王記Ⅱ", "歴代誌Ⅰ", "歴代誌Ⅱ", "エズラ記", "ネヘミヤ 記", "エステル 記", "ヨブ 記", "詩篇", "箴言 知恵の泉", "伝道者の書", "雅歌", "イザヤ書", "エレミヤ書", "哀歌", "エゼキエル書", "ダニエル書", "ホセア書", "ヨエル書", "アモス書", "オバデヤ書", "ヨナ書", "ミカ書", "ナホム書", "ハバクク書", "ゼパニヤ書", "ハガイ書", "ゼカリヤ書", "マラキ書", "マタイの福音書", "マルコの福音書", "ルカの 福音書", "ヨハネの福音書", "使徒の働き", "ローマ人への手紙", "コリント人への手紙Ⅰ", "コリント人への手紙Ⅱ", "ガラテヤ人への手紙", "エペソ人への手紙", "ピリピ人への手紙", "コロサイ 人への手紙", "テサロニケ人への手紙Ⅰ", "テサロニケ人への手紙Ⅱ", "テモテへの手紙Ⅰ", "テモテへの手紙Ⅱ", "テトスへの手紙", "ピレモンへの手紙", "へブル人への手紙", "ヤコブの手紙", "ペ テロの手紙Ⅰ", "ペテロの手紙Ⅱ", "ヨハネの手紙Ⅰ", "ヨハネの手紙Ⅱ", "ヨハネの手紙Ⅲ", "ユダの手紙", "ヨハネの黙示録" ];
 
-$book_translations = ["KRV" => $KRV_books, "KHSV" => $KHSV_books, "JLB" => $JLB_books];
+$book_translations = ["KRV" => $KRV_books, "KHSV" => $KHSV_books, "JLB" => $JLB_books, "FCB" => $bcv_books];
 
 $passages = json_decode(urldecode($_GET['passages']));
 $verses = json_decode(urldecode($_GET['verses']), true);
 
 //$translations = ["ESV" => "1"]; // mappings for Korean, Khmer, & Japanese on Bible.com
-$translations = ["KRV" => "86", "KHSV" => "85", "JLB" => "83"]; // mappings for Korean, Khmer, & Japanese on Bible.com
+$translations = ["KRV" => "86", "KHSV" => "85", "JLB" => "83", "FCB" => "1619"]; // mappings for Korean, Khmer, & Japanese on Bible.com
 
 $khmer_nums = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");
 
@@ -133,17 +135,33 @@ foreach(array_keys($translations) as $translation) {
 
       $passage_array = explode(" ", $chapter);
       $book = $book_translations[$translation][array_search($passage_array[0], $bcv_books)];
-      echo  "<div style='text-align: center'><span class='fleuron'>d</span>  $book $verseNums  <span class='fleuron'>c</span></div>";
+      echo "<div style='text-align: center'><span class='fleuron'>d</span>  $book $verseNums  <span class='fleuron'>c</span></div>";
 
-      preg_match("/<div class=\"version vid.+?>(.*)<div class=\"version-copyright/s", $result, $matches);
-      $content = $matches[1];
+      // enable user error handling
+      libxml_use_internal_errors(true);
 
       $dom = new DOMDocument();
-      $dom->loadHTML($content);
 
-      $nodes = $dom->getElementsByTagName("span");
+      if (!$dom->loadHTML($result)) {
+        foreach (libxml_get_errors() as $error) {
+          // handle errors here
+        }
 
-      foreach($nodes as $node) {
+        libxml_clear_errors();
+      }
+
+      $finder = new DomXPath($dom);
+      $classname = "verse";
+      $nodes = $finder->query("//span[contains(@class, '$classname')]");
+
+//      print_r($nodes);
+
+      $dom = new DOMDocument();
+//      print_r($nodes[0]);
+
+//      $nodes = $dom->getElementsByTagName("span");
+
+      foreach($nodes as $node) { 
         if ($node->hasAttribute("class")) {
           if ($node->getAttribute("class") == "heading" || $node->getAttribute("class") == "note x" || $node->getAttribute("class") == "note f") {
             // set display:none for verses that aren't relevant, since removing the node runs into complications
@@ -166,9 +184,12 @@ foreach(array_keys($translations) as $translation) {
             $node->setAttribute("style", "display:none");
           }
         }
+        $node = $dom->importNode($node, true);
+        echo $dom->saveHTML($node);
       }
 
-      $nodes = $dom->getElementsByTagName("div");
+  /*    $nodes = $finder->query("//div[contains(@class, '$classname')]");
+      //$nodes = $dom->getElementsByTagName("div");
 
       foreach($nodes as $node) {
         if ($node->hasAttribute("class")) {
@@ -191,10 +212,10 @@ foreach(array_keys($translations) as $translation) {
             $node->setAttribute("style", "display:none");
           }
 	}
-      }
+      } */
 
 
-      echo $dom->saveHTML();
+//      echo $dom->saveHTML();
       echo "</div>";
     }
   }
