@@ -89,6 +89,7 @@ $verses = json_decode(urldecode($_GET['verses']), true);
 
 //$translations = ["ESV" => "1"]; // mappings for Korean, Khmer, & Japanese on Bible.com
 $translations = ["KRV" => "86", "KHSV" => "85", "JLB" => "83", "FCB" => "1619"]; // mappings for Korean, Khmer, & Japanese on Bible.com
+$languages = ["Korean", "Khmer", "Japanese", "Farsi"];
 
 $khmer_nums = array("០","១","២","៣","៤","៥","៦","៧","៨","៩");
 
@@ -101,9 +102,10 @@ $bible_com_url = "https://www.bible.com/bible";
 // ********************* //
 
 foreach(array_keys($translations) as $translation) {
+  $language = $language[array_search($translation, array_keys($translations))];
   echo "<div class='block'>";
   echo "<hr />";
-  echo "<span class='simptip-position-right simptip-multiline simptip-smooth simptip-info simptip-fade' data-tooltip=\"Press Ctrl+C or Cmd+C to copy to clipboard after clicking on 'Select all'\"><a href='javascript:void(0);' id='$translation-select' onclick='selectText(\"$translation\")' class='button white noprint'>Select text</a></span>";
+  echo "<span class='simptip-position-right simptip-multiline simptip-smooth simptip-info simptip-fade' data-tooltip=\"Press Ctrl+C or Cmd+C to copy to clipboard after clicking on 'Select all'\"><a href='javascript:void(0);' id='$translation-select' onclick='selectText(\"$translation\")' class='button white noprint'>Select text</a> $language</span>";
   echo "<div class='info noprint'>Show verse references <input type='checkbox' onchange='javascript:toggleVerses(\"$translation\")' checked /></div>";
   echo "<div id='$translation' class='translation'>";
   $bibleID = $translations[$translation];

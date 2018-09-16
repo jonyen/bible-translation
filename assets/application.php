@@ -1,13 +1,15 @@
 <?php 
 $passages = explode(",", $_GET['passages']);
 $translations = ["ESV", "CNVT", "NVI", "RUSV", "BPT", "FSV", "NVI-PT"];
+$languages = ["English", "Chinese (Traditional)", "Spanish", "Russian", "Vietnamese", "Tagalog", "Portuguese"];
 
 $biblegateway_url="https://www.biblegateway.com/passage/";
 
 foreach ($translations as $translation) {
+        $language = $languages[array_search($translation, $translations)];
         echo "<div class='block'>";
         echo "<hr />";
-	echo "<span class='simptip-position-right simptip-multiline simptip-smooth simptip-info simptip-fade' data-tooltip=\"Press Ctrl+C or Cmd+C to copy to clipboard after clicking on 'Select all'\"><a href='javascript:void(0);' id='$translation-select' onclick='selectText(\"$translation\")' class='button white noprint'>Select text</a></span>";
+	echo "<span class='simptip-position-right simptip-multiline simptip-smooth simptip-info simptip-fade' data-tooltip=\"Press Ctrl+C or Cmd+C to copy to clipboard after clicking on 'Select all'\"><a href='javascript:void(0);' id='$translation-select' onclick='selectText(\"$translation\")' class='button white noprint'>Select text</a> $language</span>";
 	echo "<div class='info noprint'>Show verse references <input type='checkbox' onchange='javascript:toggleVerses(\"$translation\")' checked /></div>";
         echo "<div id='$translation' class='translation'>";
 	foreach ($passages as $passage) {
