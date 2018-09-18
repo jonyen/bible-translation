@@ -102,7 +102,7 @@ $bible_com_url = "https://www.bible.com/bible";
 // ********************* //
 
 foreach(array_keys($translations) as $translation) {
-  $language = $language[array_search($translation, array_keys($translations))];
+  $language = $languages[array_search($translation, array_keys($translations))];
   echo "<div class='block'>";
   echo "<hr />";
   echo "<span class='simptip-position-right simptip-multiline simptip-smooth simptip-info simptip-fade' data-tooltip=\"Press Ctrl+C or Cmd+C to copy to clipboard after clicking on 'Select all'\"><a href='javascript:void(0);' id='$translation-select' onclick='selectText(\"$translation\")' class='button white noprint'>Select text</a> $language</span>";
