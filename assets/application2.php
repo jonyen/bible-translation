@@ -4,6 +4,7 @@
 
 //$_GET['passages'] = "{%22John.3.16%22:[%22John%203%22]}";
 //$_GET['verses'] = "{%22JHN.3.16%22}";
+
 // ********************* //
 // Constants
 // ********************* //
@@ -163,7 +164,15 @@ foreach(array_keys($translations) as $translation) {
 
 //      $nodes = $dom->getElementsByTagName("span");
 
-      foreach($nodes as $node) { 
+      foreach($nodes as $node) {
+        foreach($node->childNodes as $childNode) {
+          if ($childNode->hasAttribute("class")) {
+            if ($childNode->getAttribute("class") == "heading" || $childNode->getAttribute("class") == "note x" || $childNode->getAttribute("class") == "note f") {
+              $childNode->setAttribute("style", "display:none");
+            }
+          }
+        }
+        print_r($node->nodeValue);
         if ($node->hasAttribute("class")) {
           if ($node->getAttribute("class") == "heading" || $node->getAttribute("class") == "note x" || $node->getAttribute("class") == "note f") {
             // set display:none for verses that aren't relevant, since removing the node runs into complications
