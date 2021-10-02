@@ -1,11 +1,54 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e66fd5c3f8342ff9ed1f0d21aab6ef81",
+    "content-hash": "b09a8ab5487fcda809fd4fc787841858",
     "packages": [
+        {
+            "name": "benjamindoe/bible-gateway",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/benjamindoe/BibleGateway.git",
+                "reference": "3274592d6ac689bb795f4896d8b708e2f27497cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/benjamindoe/BibleGateway/zipball/3274592d6ac689bb795f4896d8b708e2f27497cc",
+                "reference": "3274592d6ac689bb795f4896d8b708e2f27497cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 || ^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BenjaminDoe\\": "src/"
+                },
+                "files": [
+                    "src/BibleGateway.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Unofficial Bible Gateway PHP API",
+            "homepage": "https://github.com/benjamindoe/BibleGateway",
+            "keywords": [
+                "api",
+                "bible",
+                "biblegateway"
+            ],
+            "support": {
+                "issues": "https://github.com/benjamindoe/BibleGateway/issues",
+                "source": "https://github.com/benjamindoe/BibleGateway/tree/0.0.1"
+            },
+            "time": "2018-01-16T16:38:30+00:00"
+        },
         {
             "name": "monolog/monolog",
             "version": "1.22.1",
@@ -845,5 +888,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }
