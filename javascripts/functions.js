@@ -174,11 +174,7 @@ function loadText() {
   xmlHttp.send(null);
 
   xmlHttp.onreadystatechange = function() {
-    document.getElementById("output").remove();
-    newNode = document.createElement("div");
-    newNode.id = "output";
-    document.body.appendChild(newNode);
-
+    // document.getElementById("output").innerHTML = '';
     document.getElementById("output").innerHTML = xmlHttp.responseText;
   }
 }
