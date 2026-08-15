@@ -108,3 +108,13 @@ color: #414848;
 .block {
   display: inline-block;
 }
+
+/* Shown when a passage source was unreachable and we fell back to the cache. */
+.cache-notice {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border: 1px solid #d9b441;
+  background: #fdf6e3;
+  border-radius: 3px;
+  font-size: 14px;
+}

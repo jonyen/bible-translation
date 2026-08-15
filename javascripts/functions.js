@@ -167,14 +167,3 @@ function toggleVerses(translation) {
         verseNum.style.display = (verseNum.style.display == '' ? 'none' : '');
       });
 }
-
-function loadText() {
-  var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("GET", "../assets/init.html");
-  xmlHttp.send(null);
-
-  xmlHttp.onreadystatechange = function() {
-    // document.getElementById("output").innerHTML = '';
-    document.getElementById("output").innerHTML = xmlHttp.responseText;
-  }
-}
