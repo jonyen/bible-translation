@@ -13,8 +13,8 @@ $languages    = ["KRV" => "Korean", "JLB" => "Japanese", "FCB" => "Farsi"];
 $biblegateway_url = "https://www.biblegateway.com/passage/";
 $bible_com_url    = "https://www.bible.com/bible";
 
-$passages = json_decode($_GET['passages'], true);
-$verses   = json_decode($_GET['verses'], true);
+$passages = json_decode($_GET['passages'] ?? '', true);
+$verses   = json_decode($_GET['verses'] ?? '', true);
 if (!is_array($passages)) { $passages = []; }
 if (!is_array($verses))   { $verses = []; }
 
@@ -82,6 +82,8 @@ function query_all($finder, $expr, $context) {
 
 // Turns one fetched Bible.com chapter into printable HTML containing only the
 // requested verses. Returns null if the chapter could not be parsed.
+// $chapter_usfm is interpolated into the XPath below, so callers must pass a
+// value they have validated (BOOK.chapter, letters and digits only).
 function render_chapter($html, $chapter_usfm, $wanted_verses) {
 	list($dom, $finder) = xpath_for($html);
 
@@ -150,19 +152,26 @@ foreach ($translations as $translation => $bibleID) {
 	$body .= "<div id='$translation' class='translation'>";
 
 	foreach ($chapter_refs as $chapter => $refs) {
-		// "Mark 1" -> "MRK.1"
-		$parts = explode(" ", $chapter);
-		$book_index = array_search($parts[0], $bcv_books);
+		// "Mark 1" -> "MRK.1". The chapter reference arrives from the query
+		// string and ends up inside an XPath predicate in render_chapter(), so
+		// only a known book name followed by a plain chapter number is accepted;
+		// anything else is dropped rather than escaped.
+		if (!preg_match('/^(\\S+) (\\d+)$/', $chapter, $m)) {
+			continue;
+		}
+		$book_index = array_search($m[1], $bcv_books);
 		if ($book_index === false) {
 			continue;
 		}
-		$parts[0] = $bible_com_books[$book_index];
-		$chapter_usfm = implode(".", $parts);
+		$chapter_usfm = $bible_com_books[$book_index] . "." . $m[2];
 
 		$body .= "<div class='passages'>";
 		$title = heading_for($refs);
 		if ($title !== null) {
-			$body .= "<div style='text-align: center'><span class='fleuron'>d</span>  $title  <span class='fleuron'>c</span></div>";
+			// The heading is scraped out of BibleGateway's markup, which echoes
+			// back part of the search string, so it is escaped before printing.
+			$safe_title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+			$body .= "<div style='text-align: center'><span class='fleuron'>d</span>  $safe_title  <span class='fleuron'>c</span></div>";
 		}
 
 		$html = fetch_url("$bible_com_url/$bibleID/" . rawurlencode($chapter_usfm));
