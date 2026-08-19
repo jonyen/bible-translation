@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/fetcher.php';
 
-$passages = explode(",", $_GET['passages']);
+$passages = explode(",", $_GET['passages'] ?? '');
 $translations = ["ESV", "CNVT", "NVI", "RUSV", "BPT", "FSV", "NVI-PT"];
 $languages = ["English", "Chinese (Traditional)", "Spanish", "Russian", "Vietnamese", "Tagalog", "Portuguese"];
 
@@ -48,7 +48,10 @@ foreach ($translations as $translation) {
 		if ($title === null) {
 			$body .= "<div>Sorry, $passage could not be found for this translation.</div>";
 		} else {
-			$body .= "<div style='text-align: center'><span class='fleuron'>d</span>  $title  <span class='fleuron'>c</span></div>";
+			// The heading is scraped out of BibleGateway's markup, which echoes
+			// back part of the search string, so it is escaped before printing.
+			$safe_title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+			$body .= "<div style='text-align: center'><span class='fleuron'>d</span>  $safe_title  <span class='fleuron'>c</span></div>";
 		}
 
 		$text = "";
